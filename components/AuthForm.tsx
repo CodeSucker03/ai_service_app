@@ -171,8 +171,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
             </button>
           </form>
         </Form>
-        <button className="" onClick={signInAsG} disabled={isLoading}>
-          Sign in as guest
+        <button className="btn-secondary" onClick={signInAsG} disabled={isLoading}>
+          Or sign in as guest
         </button>
 
         <p className="text-center">

@@ -17,7 +17,7 @@ const Hero = () => {
 
   return (
     <Section
-      className="pt-[12rem] -mt-[5.25rem]"
+      className="pt-[10rem] -mt-[5.25rem]"
       crossesOffset="lg:translate-y-[6rem]"
       customPaddings
       id="hero"

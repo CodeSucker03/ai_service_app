@@ -34,8 +34,8 @@ const Header = ({ user }) => {
   };
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-20
-      lg:bg-n-8/90 lg:backdrop-blur-sm ${openNav ? "bg-n-5" : "bg-n-7"}`}
+      className={`fixed top-0 left-0 w-full z-20 py-2
+      lg:bg-n-8/90 lg:backdrop-blur-sm ${openNav ? "bg-n-7" : "bg-n-7"}`}
     >
       <div
         className="flex items-center px-5 lg:px-7 xl:px-10 
@@ -51,9 +51,9 @@ const Header = ({ user }) => {
         </Link>
         <nav
           className={` ${
-            openNav ? "" : "hidden"
-          } fixed top-[5rem] left-0 right-0 bottom-0
-        bg-n-8 lg:static lg:flex lg:mx-auto`} // hidden on mobile unless openNav is true,always flex on desktop
+            openNav ? "bg-black" : "hidden"
+          } fixed top-[5rem] left-0 right-0 bottom-0 
+        lg:static lg:flex lg:mx-auto`} // hidden on mobile unless openNav is true,always flex on desktop
         >
           {pathname == "/" && (
             <div
