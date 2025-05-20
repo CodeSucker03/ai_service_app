@@ -65,17 +65,15 @@ const Header = ({ user }) => {
                   key={item.id}
                   href={item.url}
                   onClick={() => handleClick(item.title)}
-                  className={`block relative font-code text-2xl uppercase text-pink-300 transition-colors
-                   hover:text-color-1 ${
-                     item.onlyMobile ? "lg:hidden" : ""
-                   } px-6 py-6 md:py-8
-                   lg:-mr-0.25 lg:text-xs lg:font-semibold ${
-                     item.url === pathname.hash
-                       ? "z-2 lg:text-n-1"
-                       : "lg:text-n-1/45"
-                   } lg:hover:text-n-1 xl:px-10 `}
+                  className={`block relative font-code text-2xl uppercase text-color-1
+                  transition-colors px-6 py-6 md:py-8
+                  lg:-mr-0.25 lg:text-sm lg:font-semibold
+                lg:text-n-1/45 hover:text-color-1 lg:hover:text-color-1
+                  ${item.onlyMobile ? "lg:hidden" : ""}
+                  ${item.url === pathname.hash ? "z-2 text-n-1" : ""}
+                  xl:px-10 `}
                 >
-                  {item.title != "Sign In" && user && <p>{item.title}</p>}
+                  {item.title != "Sign In" && user && item.title}
                 </a>
               ))}
             </div>

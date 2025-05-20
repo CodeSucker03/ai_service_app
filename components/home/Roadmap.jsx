@@ -1,6 +1,5 @@
 import Button from "./Button";
 import Heading from "./Heading";
-import Section from "./Section";
 import Tagline from "./Tagline";
 import { roadmap } from "../../constants";
 import { Gradient } from "./design/Roadmap";
@@ -8,7 +7,7 @@ const check2 = "/assets/check-02.svg";
 const grid = "/assets/grid.png";
 const loading1 = "/assets/loading-01.svg";
 const Roadmap = () => (
-  <Section className="" id="roadmap" crosses>
+  <div className="" id="roadmap">
     <div className="container md:pb-10">
       <Heading tag="Ready to get started" title="What we’re working on" />
 
@@ -72,7 +71,7 @@ const Roadmap = () => (
 
      
     </div>
-  </Section>
+  </div>
 );
 
 export default Roadmap;

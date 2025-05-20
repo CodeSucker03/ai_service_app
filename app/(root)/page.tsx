@@ -33,8 +33,8 @@ async function Home() {
   const hasUpcomingInterviews = allInterview?.length! > 0;
 
   return (
-    <>
-      <div className="pt-[4.75rem] lg:pt-[0.25rem] overflow-hidden">
+    <div className="">
+      <div className="pt-[4.75rem] space-y-12 lg:pt-14 overflow-hidden">
         <Hero />
         <Benefits />
         <Collaboration />
@@ -61,15 +61,12 @@ async function Home() {
             px={undefined}
             white={undefined}
             disabled={undefined}
-          >
-          </Button>
+          ></Button>
 
           {/* <Button asChild className="btn-primary max-sm:w-full">
             <Link href="/interview">Start an Interview</Link>
           </Button> */}
         </div>
-
-        
       </section>
 
       <section className="flex flex-col gap-6 mt-8">
@@ -116,7 +113,7 @@ async function Home() {
         </div>
       </section>
       <div> Hello</div>
-    </>
+    </div>
   );
 }
 

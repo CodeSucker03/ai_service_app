@@ -1,4 +1,3 @@
-import Section from "./Section";
 import Heading from "./Heading";
 import { benefits } from "../../constants";
 import Arrow from "../../public/assets/svg/Arrow";
@@ -8,7 +7,7 @@ import Link from "next/link";
 
 const Benefits = () => {
   return (
-    <Section id="features">
+    <div id="features">
       <div className="container relative z-2">
         <Heading
           className="md:max-w-md lg:max-w-2xl"
@@ -70,7 +69,7 @@ const Benefits = () => {
           ))}
         </div>
       </div>
-    </Section>
+    </div>
   );
 };
 

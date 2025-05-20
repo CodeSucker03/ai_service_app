@@ -12,7 +12,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   const user = await getCurrentUser();
 
   return (
-    <div className="root-layout">
+    <div className="root-layout ">
       {/* <nav>
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.svg" alt="MockMate Logo" width={38} height={32} />

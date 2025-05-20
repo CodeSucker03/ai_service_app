@@ -1,4 +1,3 @@
-import Section from "./Section";
 import Heading from "./Heading";
 
 import { brainwaveServices, brainwaveServicesIcons } from "../../constants";
@@ -16,7 +15,7 @@ const service3 = "/assets/services/service-3.png";
 
 const Services = () => {
   return (
-    <Section id="how-to-use">
+    <div id="how-to-use">
       <div className="container">
         <Heading
           title="Generative AI made for creators"
@@ -135,7 +134,7 @@ const Services = () => {
           <Gradient></Gradient>
         </div>
       </div>
-    </Section>
+    </div>
   );
 };
 

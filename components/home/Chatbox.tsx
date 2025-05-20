@@ -99,7 +99,7 @@ const Chatbox = () => {
       {/* Input Area */}
       <div className="flex items-center space-x-2">
         <textarea
-          className="flex-grow h-12 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-white resize-none"
+          className="flex-grow h-12 p-3 rounded-lg border bg-n-6 border-gray-300 focus:outline-none focus:ring-2 focus:ring-white resize-none"
           placeholder={!isLoading ? "Enter your message..." : "..."}
           value={content}
           onChange={(e) => !isLoading && setContent(e.target.value)}

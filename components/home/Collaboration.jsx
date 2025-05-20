@@ -1,5 +1,4 @@
 import React from "react";
-import Section from "./Section";
 import { collabContent, collabText, collabApps } from "../../constants";
 // import { brainwaveSymbol, check } from "../../public/assets";
 const check = "assets/check.svg";
@@ -8,13 +7,13 @@ import Button from "./Button";
 
 const Collaboration = () => {
   return (
-    <Section crosses>
+    <div>
       <div className="container lg:flex">
         <div className="max-w-[25rem]">
           <h2 className="h2 mb-4 md:mb-8">
             AI chat app for seamless collaboration
           </h2>
-          <ul  className="max-w-[22rem] mb-10 md:mb-14">
+          <ul className="max-w-[22rem] mb-10 md:mb-14">
             {collabContent.map((item) => (
               <li key={item.id} className="mb-3 py-3 md:mb-6">
                 <div className="flex items-center">
@@ -27,7 +26,10 @@ const Collaboration = () => {
               </li>
             ))}
           </ul>
-          <Button className="" href={"/chat"}> Try it now</Button>
+          <Button className="" href={"/chat"}>
+            {" "}
+            Try it now
+          </Button>
         </div>
         <div className="lg:ml-auto xl:w-[38rem] mt-4">
           <p
@@ -83,11 +85,10 @@ const Collaboration = () => {
                 </li>
               ))}
             </ul>
-            
           </div>
         </div>
       </div>
-    </Section>
+    </div>
   );
 };
 

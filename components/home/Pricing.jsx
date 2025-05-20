@@ -1,11 +1,10 @@
 
-import Section from "./Section";
 import Heading from "./Heading";
 import PricingList from "./PricingList";
 
 const Pricing = () => {
   return (
-    <Section className="overflow-hidden" id="pricing">
+    <div className="overflow-hidden" id="pricing">
       <div className="container relative z-2">
         
         <Heading tag='Get Started with Brainwave' 
@@ -17,7 +16,7 @@ const Pricing = () => {
           <a className="text-xs font-bold font-code uppercase border-b">See the full details</a>
         </div> */}
       </div>
-    </Section>
+    </div>
   );
 };
 
