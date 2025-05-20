@@ -101,8 +101,6 @@ export {
   loading,
   background,
   curve,
-  robot,
-  heroBackground,
   curve1,
   curve2,
   discord,

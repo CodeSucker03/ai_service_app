@@ -7,8 +7,8 @@ import {
   getFeedbackByInterviewId,
   getInterviewById,
 } from "@/lib/actions/general.action";
-import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/actions/auth.action";
+import Button from "@/components/home/Button";
 
 const Feedback = async ({ params }: RouteParams) => {
   const { id } = await params;
@@ -93,7 +93,7 @@ const Feedback = async ({ params }: RouteParams) => {
       </div>
 
       <div className="buttons">
-        <Button className="btn-secondary flex-1">
+        <Button className="btn-secondary flex-1" href={undefined} onClick={undefined}  px={undefined} white={undefined} disabled={undefined}>
           <Link href="/" className="flex w-full justify-center">
             <p className="text-sm font-semibold text-primary-200 text-center">
               Back to dashboard
@@ -101,7 +101,7 @@ const Feedback = async ({ params }: RouteParams) => {
           </Link>
         </Button>
 
-        <Button className="btn-primary flex-1">
+        <Button className="btn-primary flex-1" href={undefined} onClick={undefined} px={undefined} white={undefined} disabled={undefined}>
           <Link
             href={`/interview/${id}`}
             className="flex w-full justify-center"

@@ -9,7 +9,6 @@ import { useRef } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
 import CompanyLogos from "./CompanyLogos";
-import Chatbox from "./Chatbox";
 const curve = "/assets/hero/curve.png";
 const robot = "/assets/hero/robot.png";
 
