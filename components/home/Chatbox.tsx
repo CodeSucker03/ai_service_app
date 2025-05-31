@@ -63,7 +63,7 @@ const Chatbox = () => {
 
   return (
     // You might want to adjust overall padding and margins
-    <div className="flex flex-col h-[calc(100vh-10rem)] max-w-6xl mx-auto pt-8">
+    <div className="flex flex-col h-[calc(100vh-10rem)] max-w-6xl mx-auto pt-8 ">
       {" "}
       {/* Example: takes most of viewport height */}
       {/* Scrollable Chat Area */}

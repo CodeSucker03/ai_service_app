@@ -5,8 +5,8 @@ const Page = async () => {
   const user = await getCurrentUser();
 
   return (
-    <>
-      <h3 className="text-center mb-2">Interview generation</h3>
+    <div className="space-y-6 mt-10 max-sm:mt-20">
+      <h3 className="text-center mb-2 ">Interview generation</h3>
 
       <Agent
         userName={user?.name!}
@@ -14,7 +14,7 @@ const Page = async () => {
         // profileImage={user?.profileURL}
         type="generate"
       />
-    </>
+    </div>
   );
 };
 

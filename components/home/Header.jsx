@@ -110,9 +110,9 @@ const Header = ({ user }) => {
             />
           </div>
         )}
-        <Button className={"ml-auto lg:hidden"} px="px-3" onClick={toggleNav}>
+        {pathname == "/" && <Button className={"ml-auto lg:hidden"} px="px-3" onClick={toggleNav}>
           <MenuSvg openNavigation={openNav}></MenuSvg>
-        </Button>
+        </Button>}
       </div>
     </div>
   );

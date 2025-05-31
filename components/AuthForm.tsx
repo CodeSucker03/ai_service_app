@@ -41,7 +41,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
     },
   });
 
-  const signInAsG = async () => {
+  const signInAsGuest = async () => {
     setIsLoading(true)
 
     let email = "guest@gmail.com";
@@ -171,7 +171,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             </button>
           </form>
         </Form>
-        <button className="btn-secondary" onClick={signInAsG} disabled={isLoading}>
+        <button className="btn-secondary" onClick={signInAsGuest} disabled={isLoading}>
           Or sign in as guest
         </button>
 

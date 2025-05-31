@@ -1,5 +1,79 @@
-import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
+import { CreateAssistantDTO, CreateWorkflowDTO } from "@vapi-ai/web/dist/api";
 import { z } from "zod";
+
+export const subjects = [
+  "maths",
+  "language",
+  "science",
+  "history",
+  "coding",
+  "economics",
+];
+
+export const subjectsColors = {
+  science: "#E5D0FF",
+  maths: "#FFDA6E",
+  language: "#BDE7FF",
+  coding: "#FFC8E4",
+  history: "#FFECC8",
+  economics: "#C8FFDF",
+};
+
+export const voices = {
+  male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
+  female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },
+};
+
+export const recentSessions = [
+  {
+    id: "1",
+    subject: "science",
+    name: "Neura the Brainy Explorer",
+    topic: "Neural Network of the Brain",
+    duration: 45,
+    color: "#E5D0FF",
+  },
+  {
+    id: "2",
+    subject: "maths",
+    name: "Countsy the Number Wizard",
+    topic: "Derivatives & Integrals",
+    duration: 30,
+    color: "#FFDA6E",
+  },
+  {
+    id: "3",
+    subject: "language",
+    name: "Verba the Vocabulary Builder",
+    topic: "English Literature",
+    duration: 30,
+    color: "#BDE7FF",
+  },
+  {
+    id: "4",
+    subject: "coding",
+    name: "Codey the Logic Hacker",
+    topic: "Intro to If-Else Statements",
+    duration: 45,
+    color: "#FFC8E4",
+  },
+  {
+    id: "5",
+    subject: "history",
+    name: "Memo, the Memory Keeper",
+    topic: "World Wars: Causes & Consequences",
+    duration: 15,
+    color: "#FFECC8",
+  },
+  {
+    id: "6",
+    subject: "economics",
+    name: "The Market Maestro",
+    topic: "The Basics of Supply & Demand",
+    duration: 10,
+    color: "#C8FFDF",
+  },
+];
 
 export const mappings = {
   "react.js": "react",
@@ -97,9 +171,393 @@ export const mappings = {
   "aws amplify": "amplify",
 };
 
+export const generator = {
+  name: "Generate Interview",
+  nodes: [
+    {
+      name: "start",
+      type: "conversation",
+      isStart: true,
+      metadata: {
+        position: {
+          x: 0,
+          y: 0,
+        },
+      },
+      prompt:
+        "Speak first. Greet the user and help them create a new AI Interviewer",
+      voice: {
+        model: "aura-2",
+        voiceId: "thalia",
+        provider: "deepgram",
+      },
+      variableExtractionPlan: {
+        output: [
+          {
+            title: "level",
+            description: "The job experience level.",
+            type: "string",
+            enum: ["entry", "mid", "senior"],
+          },
+          {
+            title: "amount",
+            description: "How many questions would you like to generate?",
+            type: "number",
+            enum: [],
+          },
+          {
+            title: "techstack",
+            description:
+              "A list of technologies to cover during the job interview. For example, React, Next.js, Express.js, Node and so on...",
+            type: "string",
+            enum: [],
+          },
+          {
+            title: "role",
+            description:
+              "What role should would you like to train for? For example Frontend, Backend, Fullstack, Design, UX?",
+            type: "string",
+            enum: [],
+          },
+          {
+            title: "type",
+            description: "What type of the interview should it be? ",
+            type: "string",
+            enum: ["behavioural", "technical", "mixed"],
+          },
+        ],
+      },
+    },
+    {
+      name: "apiRequest_1747470739045",
+      type: "apiRequest",
+      metadata: {
+        position: {
+          x: -16.075937072883846,
+          y: 703.623428447121,
+        },
+      },
+      method: "POST",
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/vapi/generate`,
+      headers: {
+        type: "object",
+        properties: {},
+      },
+      body: {
+        type: "object",
+        properties: {
+          role: {
+            type: "string",
+            description: "",
+            value: "{{ role }}",
+          },
+          level: {
+            type: "string",
+            description: "",
+            value: "{{ level }}",
+          },
+          type: {
+            type: "string",
+            description: "",
+            value: "{{ type }}",
+          },
+          amount: {
+            type: "number",
+            description: "",
+            value: "{{ amount }}",
+          },
+          userid: {
+            type: "string",
+            description: "",
+            value: "{{ userid }}",
+          },
+          techstack: {
+            type: "string",
+            description: "",
+            value: "{{ techstack }}",
+          },
+        },
+      },
+      output: {
+        type: "object",
+        properties: {},
+      },
+      mode: "blocking",
+      hooks: [],
+    },
+    {
+      name: "conversation_1747721261435",
+      type: "conversation",
+      metadata: {
+        position: {
+          x: -17.547788169718615,
+          y: 1003.3409337989506,
+        },
+      },
+      prompt:
+        "Thank the user for the conversation and inform them that the interview was generated successfully.",
+      voice: {
+        provider: "deepgram",
+        voiceId: "thalia",
+        model: "aura-2",
+      },
+    },
+    {
+      name: "conversation_1747744490967",
+      type: "conversation",
+      metadata: {
+        position: {
+          x: -11.165436030430953,
+          y: 484.94857971060617,
+        },
+      },
+      prompt: "Say that the Interview will be generated shortly.",
+      voice: {
+        provider: "deepgram",
+        voiceId: "thalia",
+        model: "aura-2",
+      },
+    },
+    {
+      name: "hangup_1747744730181",
+      type: "hangup",
+      metadata: {
+        position: {
+          x: 76.01267674000721,
+          y: 1272.0665127156606,
+        },
+      },
+    },
+  ],
+  edges: [
+    {
+      from: "apiRequest_1747470739045",
+      to: "conversation_1747721261435",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
+    },
+    {
+      from: "start",
+      to: "conversation_1747744490967",
+      condition: {
+        type: "ai",
+        prompt: "If user provided all the required variables",
+      },
+    },
+    {
+      from: "conversation_1747744490967",
+      to: "apiRequest_1747470739045",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
+    },
+    {
+      from: "conversation_1747721261435",
+      to: "hangup_1747744730181",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
+    },
+  ],
+};
+
+//   name: "Interview",
+//   nodes: [
+//     {
+//       name: "start",
+//       type: "conversation",
+//       isStart: true,
+//       metadata: {
+//         position: {
+//           x: -116.43624713263682,
+//           y: 56.69344576620708,
+//         },
+//       },
+//       prompt: "Greet the user and help them create a new AI Interviewer.",
+//       voice: {
+//         model: "aura-2",
+//         voiceId: "thalia",
+//         provider: "deepgram",
+//       },
+//       variableExtractionPlan: {
+//         output: [
+//           {
+//             title: "level",
+//             description: "The job experience level.",
+//             type: "string",
+//             enum: ["entry", "mid"],
+//           },
+//           {
+//             title: "amount",
+//             description: "How many questions would you like to generate?",
+//             type: "number",
+//             enum: [],
+//           },
+//           {
+//             title: "techstack",
+//             description:
+//               "A list of technologies to cover during the job interview. For example, React, Next.js, Express.js,",
+//             type: "string",
+//             enum: [],
+//           },
+//           {
+//             title: "role",
+//             description:
+//               "What role should would you like to train for? For example Frontend, Backend, Fullstack,",
+//             type: "string",
+//             enum: [],
+//           },
+//           {
+//             title: "type",
+//             description: "What type of the interview should it be?",
+//             type: "string",
+//             enum: ["behavioural", "technical"],
+//           },
+//         ],
+//       },
+//       // messagePlan: {
+//       //   firstMessage: "Hey there!",
+//       // },
+//     },
+//     {
+//       name: "conversation_1747881446213",
+//       type: "conversation",
+//       metadata: {
+//         position: {
+//           x: -131.6887130132009,
+//           y: 486.9368711796403,
+//         },
+//       },
+//       prompt: "Say that the Interview will be generated shortly.",
+//     },
+//     {
+//       name: "apiRequest_1747882238813",
+//       type: "tool",
+//       metadata: {
+//         position: {
+//           x: 341.5338118939484,
+//           y: 83.73875834237842,
+//         },
+//       },
+//       tool: {
+//         method: "POST",
+//         type: "apiRequest",
+//         url: "https://ai-app-voice-chat.vercel.app/api/vapi/generate",
+//         headers: {
+//           type: "object",
+//           properties: {},
+//         },
+//         body: {
+//           type: "object",
+//           properties: {
+//             role: {
+//               type: "string",
+//               description: "",
+//               value: "{{role}}",
+//             },
+//             techstack: {
+//               type: "string",
+//               description: "",
+//               value: "{{ techstack }}",
+//             },
+//             level: {
+//               type: "string",
+//               description: "",
+//               value: "{{ level }}",
+//             },
+//             amount: {
+//               type: "string",
+//               description: "",
+//               value: "{{ amount }}",
+//             },
+//             userid: {
+//               type: "string",
+//               description: "",
+//               value: "{{ userid }}",
+//             },
+//             type: {
+//               type: "string",
+//               description: "",
+//               value: "{{ type }}",
+//             },
+//           },
+//         },
+//       },
+
+//       output: {
+//         type: "object",
+//         properties: {},
+//       },
+//       mode: "blocking",
+//       hooks: [],
+//     },
+//     {
+//       name: "conversation_1747882515393",
+//       type: "conversation",
+//       metadata: {
+//         position: {
+//           x: 344.9539232282547,
+//           y: 370.49411123339985,
+//         },
+//       },
+//       prompt:
+//         "thank the user for their time and informing them that the interview has been generated",
+//     },
+//     {
+//       name: "hangup_1747882568728",
+//       type: "hangup",
+//       metadata: {
+//         position: {
+//           x: 438.4903699664503,
+//           y: 590.136496650504,
+//         },
+//       },
+//     },
+//   ],
+//   edges: [
+//     {
+//       from: "start",
+//       to: "conversation_1747881446213",
+//       condition: {
+//         type: "ai",
+//         prompt: "If user provided all the required variables.",
+//       },
+//     },
+//     {
+//       from: "conversation_1747881446213",
+//       to: "apiRequest_1747882238813",
+//       condition: {
+//         type: "ai",
+//         prompt: "",
+//       },
+//     },
+//     {
+//       from: "apiRequest_1747882238813",
+//       to: "conversation_1747882515393",
+//       condition: {
+//         type: "ai",
+//         prompt: "",
+//       },
+//     },
+//     {
+//       from: "conversation_1747882515393",
+//       to: "hangup_1747882568728",
+//       condition: {
+//         type: "ai",
+//         prompt: "",
+//       },
+//     },
+//   ],
+// };
+
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
-  firstMessage: "Hello! Thank you for taking the time to speak with me today. I'm excited to learn more about you and your experience.",
+  firstMessage:
+    "Hello! Thank you for taking the time to speak with me today. I'm excited to learn more about you and your experience.",
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
@@ -152,8 +610,6 @@ End the conversation on a polite and positive note.
       },
     ],
   },
-  clientMessages: [],
-  serverMessages: []
 };
 
 export const feedbackSchema = z.object({
@@ -299,7 +755,7 @@ export const navigation = [
     url: "sign-in",
     onlyMobile: true,
   },
-   {
+  {
     id: "6",
     title: "Sign Out",
     url: "sign-in",
@@ -329,7 +785,6 @@ export const collabContent = [
     title: "Top-notch Security",
   },
 ];
-
 
 export const heroIcons = [
   "/assets/home-smile.svg",
@@ -418,7 +873,6 @@ export const collabApps = [
     height: 32,
   },
 ];
-
 
 export const pricing = [
   {
@@ -529,4 +983,3 @@ export const socials = [
     url: "#",
   },
 ];
-

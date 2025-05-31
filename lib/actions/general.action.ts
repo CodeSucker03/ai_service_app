@@ -5,7 +5,7 @@ import { google } from "@ai-sdk/google";
 
 import { db } from "@/firebase/admin";
 import { feedbackSchema } from "@/constants";
-import { stringifyError } from "next/dist/shared/lib/utils";
+
 
 export async function createFeedback(params: CreateFeedbackParams) {
   const { interviewId, userId, transcript, feedbackId } = params;
@@ -66,6 +66,73 @@ export async function createFeedback(params: CreateFeedbackParams) {
     return { success: false };
   }
 }
+
+
+export const createCompanion = async (formData: CreateCompanion) => {
+    const { userId: author } = await auth();
+
+    const { data, error } = await supabase
+        .from('companions')
+        .insert({...formData, author })
+        .select();
+
+    if(error || !data) throw new Error(error?.message || 'Failed to create a companion');
+
+    return data[0];
+}
+
+
+
+
+export const getUserCompanions = async (userId: string) => {
+    const { data, error } = await supabase
+        .from('companions')
+        .select()
+        .eq('author', userId)
+
+    if(error) throw new Error(error.message);
+
+    return data;
+}
+
+export const getAllCompanions = async ({ limit = 10, page = 1, subject, topic }: GetAllCompanions) => {
+    const supabase = createSupabaseClient();
+
+    let query = supabase.from('companions').select();
+
+    if(subject && topic) {
+        query = query.ilike('subject', `%${subject}%`)
+            .or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`)
+    } else if(subject) {
+        query = query.ilike('subject', `%${subject}%`)
+    } else if(topic) {
+        query = query.or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`)
+    }
+
+    query = query.range((page - 1) * limit, page * limit - 1);
+
+    const { data: companions, error } = await query;
+
+    if(error) throw new Error(error.message);
+
+    return companions;
+}
+
+export const getCompanion = async (id: string) => {
+
+    const { data, error } = await supabase
+        .from('companions')
+        .select()
+        .eq('id', id);
+
+    if(error) return console.log(error);
+
+    return data[0];
+}
+
+
+
+
 
 export async function getInterviewById(id: string): Promise<Interview | null> {
   const interview = await db.collection("interviews").doc(id).get();

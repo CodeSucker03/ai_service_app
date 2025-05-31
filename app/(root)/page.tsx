@@ -112,7 +112,6 @@ async function Home() {
           )}
         </div>
       </section>
-      <div> Hello</div>
     </div>
   );
 }
