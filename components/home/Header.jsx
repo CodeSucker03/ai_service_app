@@ -38,8 +38,8 @@ const Header = ({ user }) => {
       lg:bg-n-8/90 lg:backdrop-blur-sm ${openNav ? "bg-n-7" : "bg-n-7"}`}
     >
       <div
-        className="flex items-center px-5 lg:px-7 xl:px-10 
-      max-lg:py-4 "
+        className="flex items-center max-md:py-1 px-4 lg:px-7 xl:px-10 
+      max-lg:py-3 "
       >
         <Link href="/">
           <img

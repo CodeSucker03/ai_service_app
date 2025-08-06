@@ -365,195 +365,6 @@ export const generator = {
   ],
 };
 
-//   name: "Interview",
-//   nodes: [
-//     {
-//       name: "start",
-//       type: "conversation",
-//       isStart: true,
-//       metadata: {
-//         position: {
-//           x: -116.43624713263682,
-//           y: 56.69344576620708,
-//         },
-//       },
-//       prompt: "Greet the user and help them create a new AI Interviewer.",
-//       voice: {
-//         model: "aura-2",
-//         voiceId: "thalia",
-//         provider: "deepgram",
-//       },
-//       variableExtractionPlan: {
-//         output: [
-//           {
-//             title: "level",
-//             description: "The job experience level.",
-//             type: "string",
-//             enum: ["entry", "mid"],
-//           },
-//           {
-//             title: "amount",
-//             description: "How many questions would you like to generate?",
-//             type: "number",
-//             enum: [],
-//           },
-//           {
-//             title: "techstack",
-//             description:
-//               "A list of technologies to cover during the job interview. For example, React, Next.js, Express.js,",
-//             type: "string",
-//             enum: [],
-//           },
-//           {
-//             title: "role",
-//             description:
-//               "What role should would you like to train for? For example Frontend, Backend, Fullstack,",
-//             type: "string",
-//             enum: [],
-//           },
-//           {
-//             title: "type",
-//             description: "What type of the interview should it be?",
-//             type: "string",
-//             enum: ["behavioural", "technical"],
-//           },
-//         ],
-//       },
-//       // messagePlan: {
-//       //   firstMessage: "Hey there!",
-//       // },
-//     },
-//     {
-//       name: "conversation_1747881446213",
-//       type: "conversation",
-//       metadata: {
-//         position: {
-//           x: -131.6887130132009,
-//           y: 486.9368711796403,
-//         },
-//       },
-//       prompt: "Say that the Interview will be generated shortly.",
-//     },
-//     {
-//       name: "apiRequest_1747882238813",
-//       type: "tool",
-//       metadata: {
-//         position: {
-//           x: 341.5338118939484,
-//           y: 83.73875834237842,
-//         },
-//       },
-//       tool: {
-//         method: "POST",
-//         type: "apiRequest",
-//         url: "https://ai-app-voice-chat.vercel.app/api/vapi/generate",
-//         headers: {
-//           type: "object",
-//           properties: {},
-//         },
-//         body: {
-//           type: "object",
-//           properties: {
-//             role: {
-//               type: "string",
-//               description: "",
-//               value: "{{role}}",
-//             },
-//             techstack: {
-//               type: "string",
-//               description: "",
-//               value: "{{ techstack }}",
-//             },
-//             level: {
-//               type: "string",
-//               description: "",
-//               value: "{{ level }}",
-//             },
-//             amount: {
-//               type: "string",
-//               description: "",
-//               value: "{{ amount }}",
-//             },
-//             userid: {
-//               type: "string",
-//               description: "",
-//               value: "{{ userid }}",
-//             },
-//             type: {
-//               type: "string",
-//               description: "",
-//               value: "{{ type }}",
-//             },
-//           },
-//         },
-//       },
-
-//       output: {
-//         type: "object",
-//         properties: {},
-//       },
-//       mode: "blocking",
-//       hooks: [],
-//     },
-//     {
-//       name: "conversation_1747882515393",
-//       type: "conversation",
-//       metadata: {
-//         position: {
-//           x: 344.9539232282547,
-//           y: 370.49411123339985,
-//         },
-//       },
-//       prompt:
-//         "thank the user for their time and informing them that the interview has been generated",
-//     },
-//     {
-//       name: "hangup_1747882568728",
-//       type: "hangup",
-//       metadata: {
-//         position: {
-//           x: 438.4903699664503,
-//           y: 590.136496650504,
-//         },
-//       },
-//     },
-//   ],
-//   edges: [
-//     {
-//       from: "start",
-//       to: "conversation_1747881446213",
-//       condition: {
-//         type: "ai",
-//         prompt: "If user provided all the required variables.",
-//       },
-//     },
-//     {
-//       from: "conversation_1747881446213",
-//       to: "apiRequest_1747882238813",
-//       condition: {
-//         type: "ai",
-//         prompt: "",
-//       },
-//     },
-//     {
-//       from: "apiRequest_1747882238813",
-//       to: "conversation_1747882515393",
-//       condition: {
-//         type: "ai",
-//         prompt: "",
-//       },
-//     },
-//     {
-//       from: "conversation_1747882515393",
-//       to: "hangup_1747882568728",
-//       condition: {
-//         type: "ai",
-//         prompt: "",
-//       },
-//     },
-//   ],
-// };
-
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
   firstMessage:
@@ -932,19 +743,19 @@ export const benefits = [
   },
   {
     id: "2",
-    title: "Connect everywhere",
+    title: "Create companions",
     text: "Connect with the AI chatbot from anywhere, on any device, making it more accessible and convenient.",
-    url: "/chat",
+    url: "/companions/new",
     backgroundUrl: "/assets/benefits/card-3.svg",
     iconUrl: "/assets/benefits/icon-3.svg",
     imageUrl: "/assets/benefits/image-2.png",
   },
   {
     id: "3",
-    title: "Voice recognition",
+    title: "Learning companion",
     text: "The app uses advanced voice recognition technology to understand user and provide accurate and relevant responses.",
     backgroundUrl: "/assets/benefits/card-4.svg",
-    url: "/interview",
+    url: "/companions",
     iconUrl: "/assets/benefits/icon-4.svg",
     imageUrl: "/assets/benefits/image-2.png",
     light: true,

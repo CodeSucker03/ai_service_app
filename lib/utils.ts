@@ -31,7 +31,7 @@ export const configureAssistant = (voice: string, style: string) => {
       voiceId: voiceId,
       stability: 0.4,
       similarityBoost: 0.8,
-      speed: 1,
+      speed: 0.8,
       style: 0.5,
       useSpeakerBoost: true,
     },
@@ -48,6 +48,7 @@ export const configureAssistant = (voice: string, style: string) => {
                     Keep the conversation flowing smoothly while maintaining control.
                     From time to time make sure that the student is following you and understands you.
                     Break down the topic into smaller parts and teach the student one part at a time.
+                    Try to teach the topic base on only limited given time - {{ duration }} minutes.
                     Keep your style of conversation {{ style }}.
                     Keep your responses short, like in a real voice conversation.
                     Do not include any special characters in your responses - this is a voice conversation.
@@ -55,10 +56,10 @@ export const configureAssistant = (voice: string, style: string) => {
         },
       ],
     },
-    // clientMessages: [],
-    // serverMessages: [],
-    clientMessages: undefined,
-    serverMessages: undefined,
+    // @ts-expect-error
+    clientMessages: [],
+    // @ts-expect-error
+    serverMessages: [],
   };
   return vapiAssistant;
 };

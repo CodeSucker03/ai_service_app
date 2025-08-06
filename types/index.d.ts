@@ -36,6 +36,7 @@ type Companion = Models.Document & {
 // };
 
 interface CreateCompanion {
+  userId: string;
   name: string;
   subject: string;
   topic: string;
@@ -85,9 +86,10 @@ interface CompanionComponentProps {
   topic: string;
   name: string;
   userName: string;
-  userImage: string;
+  userId?: string;
   voice: string;
   style: string;
+  duration: string;
 }
 
 // Old code for interview and feedback management
