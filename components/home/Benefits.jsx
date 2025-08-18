@@ -1,17 +1,21 @@
+"use client";
 import Heading from "./Heading";
 import { benefits } from "../../constants";
 import Arrow from "../../public/assets/svg/Arrow";
 import { GradientLight } from "./design/Benefits";
 import ClipPath from "../../public/assets/svg/ClipPath";
 import Link from "next/link";
+import LoaderSpinner from "../LoaderSpinner";
+import { useState } from "react";
 
 const Benefits = () => {
+  const [isLoadingId, setIsLoadingId] = useState(null);
   return (
     <div id="features">
       <div className="container relative z-2">
         <Heading
           className="md:max-w-md lg:max-w-2xl"
-          title="Chat smarter, not harder with Brainwave"
+          title="Chat smarter, not harder with Brainiac AI"
         ></Heading>
         <div className="flex flex-wrap gap-10 mb-10">
           {benefits.map((item) => (
@@ -42,11 +46,15 @@ const Benefits = () => {
                     href={item.url}
                     className="ml-auto font-code text-sx font-bold
                     uppercase pointer-events-auto"
+                    onClick={() => setIsLoadingId(item.id)}
                   >
-                    Explore more
+                    {isLoadingId == item.id ? (
+                      <LoaderSpinner className="h-6 w-6 text-white" />
+                    ) : (
+                      "Explore more"
+                    )}
                   </Link>
-                    <Arrow />
-
+                  <Arrow />
                 </div>
               </div>
               {item.light && <GradientLight />}

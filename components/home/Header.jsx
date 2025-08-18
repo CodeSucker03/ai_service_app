@@ -42,12 +42,7 @@ const Header = ({ user }) => {
       max-lg:py-3 "
       >
         <Link href="/">
-          <img
-            src="/assets/brainwave.svg"
-            width={190}
-            height={40}
-            alt="Brainwave"
-          ></img>
+        <h1 className="font-bold">Brainiac AI </h1> 
         </Link>
         <nav
           className={` ${

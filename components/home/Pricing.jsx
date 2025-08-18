@@ -7,7 +7,7 @@ const Pricing = () => {
     <div className="overflow-hidden" id="pricing">
       <div className="container relative z-2">
         
-        <Heading tag='Get Started with Brainwave' 
+        <Heading tag='Get Started with Brainiac AI' 
         title="Pay one use forever"></Heading>
         <div className="relative">
           <PricingList />

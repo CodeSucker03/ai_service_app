@@ -8,6 +8,7 @@ import { auth } from "@/firebase/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 import {
   createUserWithEmailAndPassword,
@@ -42,7 +43,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const signInAsGuest = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     let email = "guest@gmail.com";
     let password = "11111111";
@@ -67,6 +68,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   };
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     try {
       if (type === "sign-up") {
         const { name, email, password } = data;
@@ -126,13 +128,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
     <div className="card-border lg:min-w-[566px]">
       <div className="flex flex-col gap-6 card py-14 px-10">
         <div className="flex flex-row gap-2 justify-center">
-          <Image
-            src="/assets/brainwave.svg"
-            alt="logo"
-            width={190}
-            height={40}
-          />
-          <h2 className="text-n-2">AI</h2>
+         
+          <h2 className="text-n-2">Brainiac AI</h2>
         </div>
 
         <Form {...form}>
@@ -165,14 +162,25 @@ const AuthForm = ({ type }: { type: FormType }) => {
               placeholder="Enter your password"
               type="password"
             />
-
-            <button className={`btn ${isLoading} ? bg-gray-800`} type="submit" disabled={isLoading}>
-              {isSignIn ? "Sign In" : "Create an Account"}
-            </button>
+            {isLoading ? (
+              <LoaderSpinner />
+            ) : (
+              <button
+                className={`btn ${isLoading} ? bg-gray-800`}
+                type="submit"
+                disabled={isLoading}
+              >
+                {isSignIn ? "Sign In" : "Create an Account"}
+              </button>
+            )}
           </form>
         </Form>
-        <button className="btn-secondary" onClick={signInAsGuest} disabled={isLoading}>
-          Or sign in as guest
+        <button
+          className="btn-secondary"
+          onClick={signInAsGuest}
+          disabled={isLoading}
+        >
+          {isLoading ? <LoaderSpinner /> : <p>Or sign in as guest</p>}
         </button>
 
         <p className="text-center">
