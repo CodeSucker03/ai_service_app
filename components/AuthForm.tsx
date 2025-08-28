@@ -120,10 +120,33 @@ const AuthForm = ({ type }: { type: FormType }) => {
         router.push("/");
         setIsLoading(false);
       }
-    } catch (error) {
+    } catch (error: any) {
       setIsLoading(false);
-      console.log(error);
-      toast.error(`There was an error: ${error}`);
+      let message = "Something went wrong. Please try again.";
+      // Check if the error is a FirebaseError
+      if (error.code) {
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            message = "This email is already registered.";
+            break;
+          case "auth/invalid-credential":
+            message = "Please enter a valid email address or password.";
+            break;
+          case "auth/user-not-found":
+            message = "No account found with this email.";
+            break;
+          case "auth/weak-password":
+            message = "Password should be at least 6 characters.";
+            break;
+          default:
+            message = "Authentication failed. Please try again later.";
+        }
+      } else if (error.message) {
+        // in case it's not a FirebaseError
+        message = error.message;
+      }
+      console.error("error:", error);
+      toast.error(message);
     }
   };
 
