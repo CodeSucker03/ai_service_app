@@ -88,11 +88,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
         if (!result.success) {
           toast.error(result.message);
+          setIsLoading(false);
           return;
         }
 
         toast.success("Account created successfully. Please sign in.");
         router.push("/sign-in");
+        setIsLoading(false);
       } else {
         let { email, password } = data;
 
@@ -105,6 +107,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         const idToken = await userCredential.user.getIdToken();
         if (!idToken) {
           toast.error("Sign in Failed. Please try again.");
+          setIsLoading(false);
           return;
         }
 
@@ -115,8 +118,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
         toast.success("Signed in successfully.");
         router.push("/");
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       toast.error(`There was an error: ${error}`);
     }
@@ -128,7 +133,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
     <div className="card-border lg:min-w-[566px]">
       <div className="flex flex-col gap-6 card py-14 px-10">
         <div className="flex flex-row gap-2 justify-center">
-         
           <h2 className="text-n-2">Brainiac AI</h2>
         </div>
 
