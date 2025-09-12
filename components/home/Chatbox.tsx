@@ -3,21 +3,21 @@
 import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
 import { chatBotResponse } from "@/lib/actions/general.action";
-
-
+import { redirect } from "next/navigation";
+import { isAuthenticated } from "@/lib/actions/auth.action";
 interface Message {
   id: string; // For unique key prop
   sender: "user" | "bot";
   text: string | null;
 }
 
-const Chatbox = () => {
+const Chatbox = async () => {
   const [content, setContent] = useState("");
   const [conversation, setConversation] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<null | HTMLDivElement>(null); // For auto-scrolling
-
-  
+  const isUserAuthenticated = await isAuthenticated();
+  if (isUserAuthenticated) redirect("/");
 
   const chatBotRequest = async () => {
     if (!content.trim()) return;
@@ -63,6 +63,7 @@ const Chatbox = () => {
 
   return (
     // You might want to adjust overall padding and margins
+
     <div className="flex flex-col h-[calc(100vh-10rem)] max-w-6xl mx-auto pt-8 ">
       {" "}
       {/* Example: takes most of viewport height */}
@@ -75,22 +76,22 @@ const Chatbox = () => {
               msg.sender === "user" ? "justify-end" : "justify-start"
             }`}
           >
-              {msg.sender == "bot" && (
-                <img
-                  src={"/assets/hero/robot.png"}
-                  className="w-10 h-10 border-2 rounded-full overflow-hidden self-end"
-                />
-              )}
-              <div
-                className={`max-w-[70%] p-3 rounded-4xl shadow  ${
-                  msg.sender === "user"
-                    ? "bg-blue-500 text-white" // User message style (right)
-                    : "bg-pink-600 text-gray-800" // Bot message style (left)
-                }`}
-              >
-                {/* Basic sanitization for display, consider a library for robust XSS protection if content can be malicious */}
-                <p className="whitespace-pre-wrap">{msg.text}</p>
-              </div>
+            {msg.sender == "bot" && (
+              <img
+                src={"/assets/hero/robot.png"}
+                className="w-10 h-10 border-2 rounded-full overflow-hidden self-end"
+              />
+            )}
+            <div
+              className={`max-w-[70%] p-3 rounded-4xl shadow  ${
+                msg.sender === "user"
+                  ? "bg-blue-500 text-white" // User message style (right)
+                  : "bg-pink-600 text-gray-800" // Bot message style (left)
+              }`}
+            >
+              {/* Basic sanitization for display, consider a library for robust XSS protection if content can be malicious */}
+              <p className="whitespace-pre-wrap">{msg.text}</p>
+            </div>
           </div>
         ))}
         {/* Dummy div to scroll to */}

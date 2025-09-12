@@ -20,6 +20,8 @@ import { Form } from "@/components/ui/form";
 import { signIn, signUp } from "@/lib/actions/auth.action";
 import FormField from "./FormField";
 import { useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -30,6 +32,21 @@ const authFormSchema = (type: FormType) => {
 };
 
 const AuthForm = ({ type }: { type: FormType }) => {
+  useGSAP(() => {
+    let tl = gsap.timeline({
+      repeat: -1, // loop forever
+      yoyo: true, // swing back and forth
+      ease: "sine.inOut",
+    });
+
+    tl.to(".lamp", {
+      rotate: -10, // swing right
+      duration: 1.5,
+    }).to(".lamp", {
+      rotate: 10, // swing left
+      duration: 1.5,
+    });
+  }, []);
   const router = useRouter();
   const formSchema = authFormSchema(type);
   const [isLoading, setIsLoading] = useState(false);
@@ -153,72 +170,84 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === "sign-in";
 
   return (
-    <div className="card-border lg:min-w-[566px]">
-      <div className="flex flex-col gap-6 card py-14 px-10">
-        <div className="flex flex-row gap-2 justify-center">
-          <h2 className="text-n-2">Brainiac AI</h2>
-        </div>
+    <div className="">
+      {/* <img src="lamp.png" alt="" /> */}
+      <div className="card-border md:min-w-[566px] md:my-14 my-8">
+        <div className="flex flex-col gap-6 card py-14 px-10">
+          <div className="flex flex-row gap-2 justify-center">
+            <h2 className="text-n-2">Brainiac AI</h2>
+          </div>
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-6 mt-4 form"
-          >
-            {!isSignIn && (
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-6 mt-4 form"
+            >
+              {!isSignIn && (
+                <FormField
+                  control={form.control}
+                  name="name"
+                  label="Name"
+                  placeholder="Your Name"
+                  type="text"
+                />
+              )}
+
               <FormField
                 control={form.control}
-                name="name"
-                label="Name"
-                placeholder="Your Name"
-                type="text"
+                name="email"
+                label="Email"
+                placeholder="Your email address"
+                type="email"
               />
-            )}
 
-            <FormField
-              control={form.control}
-              name="email"
-              label="Email"
-              placeholder="Your email address"
-              type="email"
-            />
-
-            <FormField
-              control={form.control}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-            />
-            {isLoading ? (
-              <LoaderSpinner />
-            ) : (
-              <button
-                className={`btn ${isLoading} ? bg-gray-800`}
-                type="submit"
-                disabled={isLoading}
-              >
-                {isSignIn ? "Sign In" : "Create an Account"}
-              </button>
-            )}
-          </form>
-        </Form>
-        <button
-          className="btn-secondary"
-          onClick={signInAsGuest}
-          disabled={isLoading}
-        >
-          {isLoading ? <LoaderSpinner /> : <p>Or sign in as guest</p>}
-        </button>
-
-        <p className="text-center">
-          {isSignIn ? "No account yet?" : "Have an account already?"}
-          <Link
-            href={!isSignIn ? "/sign-in" : "/sign-up"}
-            className="font-bold text-user-primary ml-1"
+              <FormField
+                control={form.control}
+                name="password"
+                label="Password"
+                placeholder="Enter your password"
+                type="password"
+              />
+              {isLoading ? (
+                <LoaderSpinner />
+              ) : (
+                <button
+                  className={`btn ${isLoading} ? bg-gray-800`}
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isSignIn ? "Sign In" : "Create an Account"}
+                </button>
+              )}
+            </form>
+          </Form>
+          <button
+            className="btn-secondary"
+            onClick={signInAsGuest}
+            disabled={isLoading}
           >
-            {!isSignIn ? "Sign In" : "Sign Up"}
-          </Link>
-        </p>
+            {isLoading ? <LoaderSpinner /> : <p>Or sign in as guest</p>}
+          </button>
+
+          <p className="text-center">
+            {isSignIn ? "No account yet?" : "Have an account already?"}
+            <Link
+              href={!isSignIn ? "/sign-in" : "/sign-up"}
+              className="font-bold text-user-primary ml-1"
+            >
+              {!isSignIn ? "Sign In" : "Sign Up"}
+            </Link>
+          </p>
+        </div>
+      </div>
+      <div className="absolute lamp md:-top-10 left-30 -top-2 -z-1 origin-top scale-100">
+        <img src="/lamp.png" alt="lamp" />
+      </div>
+
+      {/* Right lamp */}
+      <div className="absolute lamp md:-top-10 right-30 
+      -top-2 -z-1 origin-top scale-100">
+        <img src="/lamp.png" alt="lamp" />
       </div>
     </div>
   );

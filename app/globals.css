@@ -28,8 +28,6 @@
   --color-dark-300: #242633;
 
   --font-mona-sans: "Mona Sans", sans-serif;
-
-  --bg-pattern: url("/test.png");
 }
 
 :root {
@@ -152,7 +150,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-black text-foreground font-sans;
   }
   p {
     @apply text-light-100;
@@ -169,6 +167,9 @@
   li {
     @apply text-light-100;
   }
+  video {
+    @apply w-full md:h-[80%] h-1/2 absolute top-0 left-0 md:object-contain object-bottom object-cover;
+  }
 }
 
 @layer components {
@@ -179,6 +180,17 @@
       @apply bg-success-100 h-[85%] w-[65%];
     }
   }
+  /* .noisy {
+    @apply absolute inset-0 size-full;
+  } */
+
+  #hero {
+    @apply relative z-10 min-h-dvh w-full border bg-[url("/noise.png")];
+  }
+  /* video {
+    @apply w-full md:h-[80%] h-full absolute bottom-0 left-0 md:object-contain object-bottom object-cover;
+  } */
+
   .companion-card {
     @apply flex flex-col rounded-4xl border border-black px-4 py-4 gap-5 w-full min-lg:max-w-[410px] justify-between;
   }
@@ -270,7 +282,7 @@
   .companions-grid {
     @apply flex flex-wrap gap-4 w-full max-md:justify-center justify-between;
   }
-   .companion-list {
+  .companion-list {
     @apply rounded-4xl border border-black px-7 pt-7 pb-10 max-lg:w-full bg-purple-800;
   }
 
@@ -283,7 +295,7 @@
   }
 
   .auth-layout {
-    @apply flex items-center justify-center mx-auto max-w-7xl min-h-screen max-sm:px-4 max-sm:py-8;
+    @apply flex items-start justify-center mx-auto max-w-7xl min-h-screen max-sm:px-4 max-sm:py-8;
   }
 
   .root-layout {
@@ -392,7 +404,7 @@
 }
 
 @utility pattern {
-  @apply bg-[url('/test.png')] bg-top bg-no-repeat;
+  @apply bg-[url('/noise.png')] bg-top bg-no-repeat;
 }
 
 @utility blue-gradient-dark {

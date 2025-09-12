@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Button from "./Button";
 import MenuSvg from "../../public/assets/svg/MenuSvg.jsx";
 import { HamburgerMenu } from "./design/Header";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { signOut } from "@/lib/actions/auth.action";
 
@@ -32,22 +32,25 @@ const Header = ({ user }) => {
   const handleOut = async () => {
     await signOut();
   };
+  const navTween = useRef();
+
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-20 py-2
-      lg:bg-n-8/90 lg:backdrop-blur-sm ${openNav ? "bg-n-7" : "bg-n-7"}`}
+      className={`navspace fixed top-0 
+         left-0 w-full z-20 py-2 ${openNav ? "h-[100%] bg-black " : "backdrop-blur-sm border"}
+        `}
     >
       <div
         className="flex items-center max-md:py-1 px-4 lg:px-7 xl:px-10 
       max-lg:py-3 "
       >
         <Link href="/">
-        <h1 className="font-bold">Brainiac AI </h1> 
+          <h1 className="font-bold">Brainiac AI </h1>
         </Link>
         <nav
           className={` ${
-            openNav ? "bg-black" : "hidden"
-          } fixed top-[5rem] left-0 right-0 bottom-0 
+            openNav ? "" : "hidden"
+          } fixed top-[4rem] left-0 right-0 bottom-0 
         lg:static lg:flex lg:mx-auto`} // hidden on mobile unless openNav is true,always flex on desktop
         >
           {pathname == "/" && (
@@ -63,7 +66,7 @@ const Header = ({ user }) => {
                   className={`block relative font-code text-2xl uppercase text-color-1
                   transition-colors px-6 py-6 md:py-8
                   lg:-mr-0.25 lg:text-sm lg:font-semibold
-                lg:text-n-1/45 hover:text-color-1 lg:hover:text-color-1
+                lg:text-n-1/45 hover:text-white lg:hover:text-color-1
                   ${item.onlyMobile ? "lg:hidden" : ""}
                   ${item.url === pathname.hash ? "z-2 text-n-1" : ""}
                   xl:px-10 `}
@@ -105,9 +108,11 @@ const Header = ({ user }) => {
             />
           </div>
         )}
-        {pathname == "/" && <Button className={"ml-auto lg:hidden"} px="px-3" onClick={toggleNav}>
-          <MenuSvg openNavigation={openNav}></MenuSvg>
-        </Button>}
+        {pathname == "/" && (
+          <Button className={"ml-auto lg:hidden"} px="px-3" onClick={toggleNav}>
+            <MenuSvg openNavigation={openNav}></MenuSvg>
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import Heading from "./Heading";
 
 import { brainwaveServices, brainwaveServicesIcons } from "../../constants";
@@ -8,12 +10,18 @@ import {
   VideoBar,
   VideoChatMessage,
 } from "./design/Services";
+import { useGSAP } from "@gsap/react";
+import { cardAnimation } from "./cardAnimation";
 const check = "/assets/check.svg";
 const service1 = "/assets/services/service-1.png";
 const service2 = "/assets/services/service-2.png";
 const service3 = "/assets/services/service-3.png";
 
 const Services = () => {
+
+  useGSAP(() => {
+     cardAnimation("#how-to-use", "#how-to-use");
+  }, []);
   return (
     <div id="how-to-use">
       <div className="container">

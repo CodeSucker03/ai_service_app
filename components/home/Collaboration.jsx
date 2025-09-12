@@ -1,27 +1,47 @@
+"use client";
 import React from "react";
 import { collabContent, collabText, collabApps } from "../../constants";
 // import { brainwaveSymbol, check } from "../../public/assets";
 const check = "assets/check.svg";
 const brainwaveSymbol = "assets/brainwave-symbol.svg";
 import Button from "./Button";
-
+import Heading from "./Heading";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 const Collaboration = () => {
+  useGSAP(() => {
+    gsap.fromTo(
+      "#collabText",
+      {
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 1.5,
+        stagger: 0.4,
+
+      }
+    );
+  }, []);
   return (
     <div>
       <div className="container lg:flex">
         <div className="max-w-[25rem]">
-          <h2 className="h2 mb-4 md:mb-8">
-            AI chat app for seamless collaboration
-          </h2>
+          <Heading title="AI chat app for seamless collaboration"></Heading>
           <ul className="max-w-[22rem] mb-10 md:mb-14">
             {collabContent.map((item) => (
-              <li key={item.id} className="mb-3 py-3 md:mb-6">
+              <li key={item.id} className="mb-3 py-3 md:mb-6" id="collabText">
                 <div className="flex items-center">
                   <img src={check} width={24} height={24} alt="check" />
                   <h6 className="body-2 ml-5">{item.title}</h6>
                 </div>
                 {item.text && (
-                  <p className="body-2 mt-2 text-n-4 ">{item.text}</p>
+                  <p className="body-2 mt-2 text-n-4 " >
+                    {item.text}
+                  </p>
                 )}
               </li>
             ))}
@@ -35,6 +55,7 @@ const Collaboration = () => {
           <p
             className="body-2 mb-4 text-n-4 md:mb-16 lg:mb-32
             lg:w-[22rem] lg:mx-auto"
+            id="collabText"
           >
             {collabText}
           </p>

@@ -321,11 +321,50 @@ export async function getLatestInterviews(
   })) as Interview[];
 }
 
+async function fetchWithRetry(
+  url: string | URL | Request,
+  options: RequestInit | undefined,
+  maxRetries = 5
+) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch(url, options);
+
+      // If the request is successful, return the response immediately
+      if (response.ok) {
+        return response;
+      }
+
+      // If it's a 429 error, calculate a backoff delay and continue the loop
+      if (response.status === 429) {
+        const delay = Math.pow(2, i) * 1000 + Math.random() * 500; // Exponential backoff with jitter
+        console.warn(
+          `Rate limit hit (429). Retrying in ${Math.round(delay / 1000)}s...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        continue; // Go to the next loop iteration
+      }
+
+      // For any other non-OK status, throw an error immediately
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    } catch (error) {
+      if (i === maxRetries - 1) {
+        // If this is the last attempt, throw the error
+        throw error;
+      }
+      console.error(`Attempt ${i + 1} failed:`, error);
+      // Wait before retrying (for network-related errors)
+      const delay = Math.pow(2, i) * 1000 + Math.random() * 500;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
 export async function chatBotResponse(
   requestMessage: string
 ): Promise<string | null> {
   try {
-    const response = await fetch(
+    const response = await fetchWithRetry(
       "https://openrouter.ai/api/v1/chat/completions",
       {
         method: "POST",
@@ -334,22 +373,37 @@ export async function chatBotResponse(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-chat-v3-0324:free",
-          messages: [{ role: "user", content: requestMessage }],
+          model: "nousresearch/deephermes-3-llama-3-8b-preview:free",
+          messages: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: requestMessage,
+                },
+                // {
+                //   type: "image_url",
+                //   image_url: {
+                //     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+                //   },
+                // },
+              ],
+            },
+          ],
         }),
       }
     );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    if (!response) {
+      throw new Error("No response received from fetchWithRetry.");
     }
-
     const data = await response.json();
     const res: string = data.choices[0].message.content;
     return res;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error:", error);
-    return error?.message || "Unknown error";
+    return (error as Error)?.message || "Unknown error";
   }
 }
 

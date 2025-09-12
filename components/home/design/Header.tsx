@@ -23,7 +23,7 @@ export const BackgroundCircles = () => {
 export const HamburgerMenu = () => {
   return (
     <div className="absolute inset-0 pointer-events-none lg:hidden">
-      <div className="absolute inset-0 opacity-[.03]">
+      {/* <div className="absolute inset-0 opacity-[.03]">
         <Image
           className="w-full h-full object-cover"
           src={background}
@@ -31,12 +31,7 @@ export const HamburgerMenu = () => {
           height={953}
           alt="Background"
         />
-      </div>
-
-
-      <SideLines />
-
-      <BackgroundCircles />
+      </div> */}
     </div>
   );
 };

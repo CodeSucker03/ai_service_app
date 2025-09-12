@@ -6,16 +6,47 @@ const CompanyLogos = ({ className }) => {
       <h5 className="tagline mb-6 text-center text-n-1/50">
         Helping people create beautiful content at
       </h5>
-      <ul className="flex">
-        {companyLogos.map((logo, index) => (
-          <li
-            className="flex items-center justify-center flex-1 h-[8.5rem]"
-            key={index}
-          >
-            <img src={logo} width={134} height={28} alt={logo} />
-          </li>
-        ))}
-      </ul>
+
+      {/* Wrapper for bottom placement */}
+      <div
+        className="
+      relative  
+      flex w-full justify-center
+      lg:justify-between
+    "
+      >
+        {/* Left column */}
+        <ul className="lg:flex gap-6 lg:flex-col lg:ml-6">
+          {companyLogos
+            .slice(0, Math.ceil(companyLogos.length / 2))
+            .map((logo, index) => (
+              <li key={index} className="flex items-center h-[8.5rem]">
+                <img
+                  src={logo}
+                  width={134}
+                  height={28}
+                  alt={`logo-left-${index}`}
+                />
+              </li>
+            ))}
+        </ul>
+
+        {/* Right column */}
+        <ul className="hidden lg:flex gap-6 lg:flex-col lg:mr-6">
+          {companyLogos
+            .slice(Math.ceil(companyLogos.length / 2))
+            .map((logo, index) => (
+              <li key={index} className="flex items-center h-[8.5rem]">
+                <img
+                  src={logo}
+                  width={134}
+                  height={28}
+                  alt={`logo-right-${index}`}
+                />
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };
