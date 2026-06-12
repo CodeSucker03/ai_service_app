@@ -7,8 +7,7 @@ import { ScrollParallax } from "react-just-parallax";
 import { useEffect, useRef, useState } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
-import CompanyLogos from "./CompanyLogos";
-import { chatBotResponse } from "@/lib/actions/general.action";
+import CompanyLogos from "./CompanyLogos";;
 const curve = "/assets/hero/curve.png";
 const frame = "/assets/hero/frame.png";
 
